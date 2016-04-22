@@ -16,8 +16,6 @@ own cmdsets by inheriting from them or directly from `evennia.CmdSet`.
 
 from evennia import default_cmds
 
-from commands.system.reload import CmdReload
-
 class CharacterCmdSet(default_cmds.CharacterCmdSet):
     """
     The `CharacterCmdSet` contains general in-game commands like `look`,
@@ -31,7 +29,6 @@ class CharacterCmdSet(default_cmds.CharacterCmdSet):
         Populates the cmdset
         """
         super(CharacterCmdSet, self).at_cmdset_creation()
-        self.add(CmdReload())
 
 class PlayerCmdSet(default_cmds.PlayerCmdSet):
     """
