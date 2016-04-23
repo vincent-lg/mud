@@ -37,6 +37,7 @@ from evennia import syscmdkeys
 from evennia.utils.evmenu import EvMenu
 
 from menu.choose_characters import choose_characters
+from menu.confirm_password import confirm_password
 from menu.create_account import create_account
 from menu.create_password import create_password
 from menu.create_username import create_username
@@ -127,6 +128,7 @@ class CmdUnloggedinLook(Command):
                 "create_account": create_account,
                 "create_username": create_username,
                 "create_password": create_password,
+                "confirm_password": confirm_password,
                 "email_address": email_address,
                 "validate_account": validate_account,
         }

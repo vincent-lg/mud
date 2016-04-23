@@ -89,7 +89,7 @@ def password(caller, input):
                 caller, "Good bye!  Disconnecting...")
     else:
         # The password is correct, we can log into the player.
-        if not player.db.email_address:
+        if not player.email:
             # Redirects to the node to set an e-mail address
             text = text_email_address(player)
             options = (

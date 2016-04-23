@@ -29,11 +29,7 @@ def email_address(caller, input):
     player = caller.db._player
 
     # Search for players with an identical e-mail address
-    # This code needs optimization!
-    identical = list(Player.objects.all())
-    identical = [p for p in identical if p.db.email_address]
-    identical = [p for p in identical if \
-            p.db.email_address.lower() == email_address.lower()]
+    identical = list(Player.objects.filter(email=email_address))
 
     if player in identical:
         identical.remove(player)
@@ -55,7 +51,8 @@ def email_address(caller, input):
                 Or enter another e-mail address.
         """.strip("\n"))
     else:
-        player.db.email_address = email_address
+        player.email = email_address
+        player.save()
 
         # Generates the 4-digit validation code
         numbers = "012345678"
