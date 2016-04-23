@@ -123,7 +123,6 @@ class WrongPassword(DefaultScript):
 
 
         """
-        print("Calling repeat...")
         self.obj.db._locked = False
         if self.db.session:
             self.db.session.msg("Enter your password again.")
