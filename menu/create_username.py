@@ -9,7 +9,7 @@ from textwrap import dedent
 from evennia import managers
 
 ## Constants
-RE_VALID_USERNAME = re.compile(r"^[a-z]{3,}$", re.I)
+RE_VALID_USERNAME = re.compile(r"^[a-z0-9_.]{3,}$", re.I)
 
 def create_username(caller, input):
     """Prompt to enter a valid username (one that doesnt exist).
@@ -51,8 +51,9 @@ def create_username(caller, input):
     elif not RE_VALID_USERNAME.search(input):
         text = dedent("""
             |rThis username isn't valid.|n
-            Only letters are accepted, without special characters.
-            The username must be at least 3 characters long.
+            Letters, numbers, the underscore sign (_) and the dot (.)
+            are accepted in your username.  Additionally, the username must
+            be at least 3 characters long.
                 Type |yb|n to go back to the login screen.
                 Or enter another username to be created.
         """.strip("\n"))
