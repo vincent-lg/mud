@@ -5,7 +5,8 @@ This module contains the 'validate_account' menu node.
 
 from textwrap import dedent
 
-from menu.choose_characters import text_choose_characters
+from menu.choose_characters import text_choose_characters, \
+        options_choose_characters
 
 def validate_account(caller, input):
     """Prompt the user to enter the received validation code."""
@@ -36,12 +37,6 @@ def validate_account(caller, input):
         player.attributes.remove("validation_code")
         text = "This account has successfully been validated!"
         text += "\n\n" + text_choose_characters(player)
-        options = (
-            {
-                "key": "_default",
-                "desc": "Login to a valid character.",
-                "goto": "choose_characters",
-            },
-        )
+        options = options_choose_characters(player)
 
     return text, options
