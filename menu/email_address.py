@@ -7,6 +7,7 @@ from random import choice
 from textwrap import dedent
 
 from services import email
+from typeclasses.players import Player
 
 def email_address(caller, input):
     """Prompt the user to enter a valid email address."""
@@ -26,6 +27,17 @@ def email_address(caller, input):
 
     email_address = input.strip()
     player = caller.db._player
+
+    # Search for players with an identical e-mail address
+    # This code needs optimization!
+    identical = list(Player.objects.all())
+    identical = [p for p in identical if p.db.email_address]
+    identical = [p for p in identical if \
+            p.db.email_address.lower() == email_address.lower()]
+
+    if player in identical:
+        identical.remove(player)
+
     if not email.is_email_address(email_address):
         # The e-mail address doesn't seem to be valid
         text = dedent("""
@@ -34,6 +46,14 @@ def email_address(caller, input):
                 Type |yb|n to return to the login screen.
                 Or enter another e-mail address.
         """.strip("\n")).format(email_address)
+    elif identical:
+        # The e-mail address is already used
+        text = dedent("""
+            |rThe e-mail address you have entered is already being used
+            by another account.  You can either:
+                Type |yb|n to return to the login screen.
+                Or enter another e-mail address.
+        """.strip("\n"))
     else:
         player.db.email_address = email_address
 

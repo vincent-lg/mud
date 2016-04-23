@@ -5,7 +5,7 @@ This module contains the 'username' node menu.
 
 from textwrap import dedent
 
-from evennia import managers
+from typeclasses.players import Player
 
 def username(caller, input):
     """Check that the username leads to an existing player.
@@ -17,7 +17,8 @@ def username(caller, input):
 
     """
     input = input.strip()
-    player = managers.players.get_player_from_name(input)
+    players = Player.objects.filter(username__iexact=input)
+    player = players[0] if players else None
     if player is None:
         text = dedent("""
             |rThe username {} doesn't exist yet.  Have you created it?|n

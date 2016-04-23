@@ -6,7 +6,7 @@ This module contains the 'create_username' node menu.
 import re
 from textwrap import dedent
 
-from evennia import managers
+from typeclasses.players import Player
 
 ## Constants
 RE_VALID_USERNAME = re.compile(r"^[a-z0-9_.]{3,}$", re.I)
@@ -19,7 +19,8 @@ def create_username(caller, input):
 
     """
     input = input.strip()
-    player = managers.players.get_player_from_name(input)
+    players = Player.objects.filter(username__iexact=input)
+    player = players[0] if players else None
     options = (
         {
             "key": "_default",
