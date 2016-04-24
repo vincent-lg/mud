@@ -10,6 +10,7 @@ from django.conf import settings
 
 from evennia import logger
 
+from menu.character import _login
 from menu.email_address import text_email_address
 
 def confirm_password(caller, input):
@@ -68,6 +69,7 @@ def confirm_password(caller, input):
         else:
             caller.db._player = player
             del caller.db._password
+            _login(caller, player)
             text = "Your new account was successfully created!"
             text += "\n\n" + text_email_address(player)
             options = (

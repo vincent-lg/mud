@@ -7,8 +7,10 @@ from textwrap import dedent
 
 from evennia.server.models import ServerConfig
 
-from menu.choose_characters import text_choose_characters, \
-        options_choose_characters
+from menu.character import (
+        _text_choose_characters,
+        _options_choose_characters,
+        _login)
 from menu.email_address import text_email_address
 from typeclasses.scripts import WrongPassword
 
@@ -110,7 +112,8 @@ def password(caller, input):
                 },
             )
         else:
-            text = text_choose_characters(player)
-            options = options_choose_characters(player)
+            _login(caller, player)
+            text = ""
+            options = _options_choose_characters(player)
 
     return text, options

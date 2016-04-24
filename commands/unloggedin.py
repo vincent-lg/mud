@@ -36,71 +36,16 @@ from evennia import Command, CmdSet
 from evennia import syscmdkeys
 from evennia.utils.evmenu import EvMenu
 
-from menu.choose_characters import choose_characters
 from menu.confirm_password import confirm_password
 from menu.create_account import create_account
-from menu.create_first_name import create_first_name
-from menu.create_last_name import create_last_name
 from menu.create_password import create_password
 from menu.create_username import create_username
 from menu.email_address import email_address
+from menu.generic import _formatter, _input_no_digit
 from menu.password import password
-from menu.select_age import select_age
-from menu.select_gender import select_gender
 from menu.start import start
 from menu.username import username
 from menu.validate_account import validate_account
-
-def _formatter(nodetext, optionstext, caller=None):
-    """Do not display the options, only the text.
-
-    This function is used by EvMenu to format the text of nodes.
-    Options are not displayed for this menu, where it doesn't often
-    make much sense to do so.  Thus, only the node text is displayed.
-
-    """
-    return nodetext
-
-def _input_no_digit(menuobject, raw_string, caller):
-    """
-    Process input.
-
-    Processes input much the same way the original function in
-    EvMenu operates, but if input is a number, consider it a
-    default choice.
-
-    Args:
-        menuobject (EvMenu): The EvMenu instance
-        raw_string (str): The incoming raw_string from the menu
-            command.
-        caller (Object, Player or Session): The entity using
-            the menu.
-    """
-    cmd = raw_string.strip().lower()
-
-    if cmd.isdigit() and menuobject.default:
-        goto, callback = menuobject.default
-        menuobject.callback_goto(callback, goto, raw_string)
-    elif cmd in menuobject.options:
-        # this will take precedence over the default commands
-        # below
-        goto, callback = menuobject.options[cmd]
-        menuobject.callback_goto(callback, goto, raw_string)
-    elif menuobject.auto_look and cmd in ("look", "l"):
-        menuobject.display_nodetext()
-    elif menuobject.auto_help and cmd in ("help", "h"):
-        menuobject.display_helptext()
-    elif menuobject.auto_quit and cmd in ("quit", "q", "exit"):
-        menuobject.close_menu()
-    elif menuobject.default:
-        goto, callback = menuobject.default
-        menuobject.callback_goto(callback, goto, raw_string)
-    else:
-        caller.msg(_HELP_NO_OPTION_MATCH)
-
-    if not (menuobject.options or menuobject.default):
-        # no options - we are at the end of the menu.
-        menuobject.close_menu()
 
 class UnloggedinCmdSet(CmdSet):
     "Cmdset for the unloggedin state"
@@ -128,17 +73,12 @@ class CmdUnloggedinLook(Command):
                 "start": start,
                 "username": username,
                 "password": password,
-                "choose_characters": choose_characters,
                 "create_account": create_account,
                 "create_username": create_username,
                 "create_password": create_password,
                 "confirm_password": confirm_password,
                 "email_address": email_address,
                 "validate_account": validate_account,
-                "create_first_name": create_first_name,
-                "create_last_name": create_last_name,
-                "select_age": select_age,
-                "select_gender": select_gender,
         }
 
         menu = EvMenu(self.caller, nodes, startnode="start", auto_quit=False,
