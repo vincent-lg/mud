@@ -20,19 +20,16 @@ def choose_characters(caller, input):
     input = input.strip()
 
     # Search for a valid character
-    found = False
     for i, character in enumerate(player.db._playable_characters):
         if input == str(i + 1):
-            found = True
             caller.attributes.remove("_player")
             caller.sessionhandler.login(caller, player)
             player.puppet_object(caller, character)
-            break
+            return "", None
 
-    if not found:
-        text = "|rThis character cannot be found.  Try again.|n"
-        text += "\n" + text_choose_characters(player)
-        options = options_choose_characters(player)
+    text = "|rThis character cannot be found.  Try again.|n"
+    text += "\n" + text_choose_characters(player)
+    options = options_choose_characters(player)
 
     return text, options
 

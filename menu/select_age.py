@@ -90,6 +90,7 @@ def select_age(caller, input):
             caller.msg(text)
             caller.sessionhandler.login(caller, player)
             player.puppet_object(caller, character)
+            return "", None
 
     return text, options
 

@@ -142,5 +142,5 @@ class CmdUnloggedinLook(Command):
         }
 
         menu = EvMenu(self.caller, nodes, startnode="start", auto_quit=False,
-                node_formatter=_formatter, input_parser=_input_no_digit,
-                persistent=True)
+                cmd_on_exit=None, node_formatter=_formatter,
+                input_parser=_input_no_digit, persistent=True)
