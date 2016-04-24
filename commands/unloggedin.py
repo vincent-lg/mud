@@ -39,10 +39,14 @@ from evennia.utils.evmenu import EvMenu
 from menu.choose_characters import choose_characters
 from menu.confirm_password import confirm_password
 from menu.create_account import create_account
+from menu.create_first_name import create_first_name
+from menu.create_last_name import create_last_name
 from menu.create_password import create_password
 from menu.create_username import create_username
 from menu.email_address import email_address
 from menu.password import password
+from menu.select_age import select_age
+from menu.select_gender import select_gender
 from menu.start import start
 from menu.username import username
 from menu.validate_account import validate_account
@@ -131,6 +135,10 @@ class CmdUnloggedinLook(Command):
                 "confirm_password": confirm_password,
                 "email_address": email_address,
                 "validate_account": validate_account,
+                "create_first_name": create_first_name,
+                "create_last_name": create_last_name,
+                "select_age": select_age,
+                "select_gender": select_gender,
         }
 
         menu = EvMenu(self.caller, nodes, startnode="start", auto_quit=False,

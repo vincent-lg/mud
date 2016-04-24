@@ -72,7 +72,7 @@ def options_choose_characters(player):
         options.append(        {
                 "key": "c",
                 "desc": "Create a new character.",
-                "goto": "create_character",
+                "goto": "create_first_name",
         })
 
     if len(characters) > 0:
